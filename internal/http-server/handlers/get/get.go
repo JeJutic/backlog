@@ -35,7 +35,7 @@ func New(log *slog.Logger, getter TaskGetter) http.HandlerFunc {
 			log.Error("couldn't get tasks", sl.Err(err))
 
 			render.Status(r, 500)
-			render.JSON(w, r, "couldn't get tasks")
+			render.JSON(w, r, response.Error("couldn't get tasks"))
 
 			return
 		}
