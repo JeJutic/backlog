@@ -27,7 +27,7 @@ func main() {
 
 	log.Info("starting jejutic/backlog", slog.String("env", cfg.Env))
 
-	storage, err := sqlite.New(cfg.StoragePath)
+	storage, err := sqlite.New(log, cfg.StoragePath)
 	if err != nil {
 		log.Error("failed to connect to storage")
 		os.Exit(1)

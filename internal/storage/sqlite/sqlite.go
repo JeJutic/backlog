@@ -2,7 +2,9 @@ package sqlite
 
 import (
 	"backlog/internal/api/task"
+	"backlog/internal/storage"
 	"database/sql"
+	"log/slog"
 
 	"github.com/pkg/errors"
 	_ "modernc.org/sqlite"
@@ -12,10 +14,16 @@ type Storage struct {
 	db *sql.DB
 }
 
-func New(storagePath string) (*Storage, error) {
+func New(log *slog.Logger, storagePath string) (*Storage, error) {
+	storageURL := "sqlite://" + storagePath
+	err := storage.Initialize(log, storageURL)
+	if err != nil {
+		return nil, errors.Wrapf(err, "couldn't initialize storage: %s", storagePath)
+	}
+
 	db, err := sql.Open("sqlite", storagePath)
 	if err != nil {
-		return nil, errors.Wrapf(err, "couldn't open db: %s", storagePath)
+		return nil, errors.Wrapf(err, "couldn't connect to db: %s", storagePath)
 	}
 
 	return &Storage{db}, nil

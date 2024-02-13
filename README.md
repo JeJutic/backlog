@@ -6,9 +6,7 @@
 
 Требуется установить переменную окружения `CONFIG_PATH` (к примеру на `./config/local.yml`).
 
-Применяются миграции [golang-migrate](https://github.com/golang-migrate/migrate).
 ```
-$ migrate -path storage/migration -database sqlite://storage/storage.db up
 $ go run cmd/backlog/main.go
 ```
 
