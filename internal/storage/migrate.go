@@ -20,8 +20,6 @@ const (
 )
 
 func Initialize(log *slog.Logger, storageURL string) error {
-	//databaseURL += "?sslmode=disable"
-
 	var (
 		attempts = _defaultAttempts
 		err      error
